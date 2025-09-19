@@ -78,7 +78,7 @@ class apiforbindelse( ):
             self.apiurl = 'https://nvdbapiles.test.atlas.vegvesen.no' 
         
         elif miljo == 'prodles': 
-            self.apiurl = 'https://nvdbapiles-v3.atlas.vegvesen.no' 
+            self.apiurl = 'https://nvdbapiles.atlas.vegvesen.no' 
 
         elif miljo == 'stmskriv': 
             self.apiurl = 'https://nvdbapiskriv-stm.utv.atlas.vegvesen.no'
@@ -130,7 +130,7 @@ class apiforbindelse( ):
             realm : string, angir brukertype for innlogging skriveapi. 
                     'EMPLOYEE' er default (personlig bruker hos SVV), 
                     alternativt 'serviceaccount' (fjesløs systembruker)
-                    TODO: Burde byttet begrep til user_type, ref https://nvdbapiles-v3.test.atlas.vegvesen.no/dokumentasjon/#autentisering 
+                    TODO: Burde byttet begrep til user_type, ref https://nvdbapiles.test.atlas.vegvesen.no/dokumentasjon/#autentisering 
 
             user_type : string, angir brukertype for innlogging leseapi 
                     'employee' er default (personlig bruker hos SVV), 

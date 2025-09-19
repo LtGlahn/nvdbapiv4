@@ -162,7 +162,8 @@ class nvdbVegnett:
                 parametre = merge_dicts(  self.filterdata, self.respons )
                 self.data = self.anrope( '/'.join(('vegobjekter', str(self.objektTypeId) )), 
                     parametre=parametre ) 
-                self.antall = self.data['metadata']['antall']
+                # self.antall = self.data['metadata']['antall']
+                self.antall = len( self.data['objekter']  )
 
             elif isinstance( self, nvdbNoder ): 
                 parametre = self.filterdata
@@ -171,7 +172,7 @@ class nvdbVegnett:
             elif isinstance( self, nvdbVegnett): 
                 parametre = self.filterdata
                 self.data = self.anrope( 'vegnett/veglenkesekvenser/segmentert', parametre=parametre )
-                self.antall = self.data['metadata']['antall']
+                self.antall = len( self.data['objekter'] )
 
             self.paginering['initielt'] = False
 
