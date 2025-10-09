@@ -62,7 +62,6 @@ class apiforbindelse( ):
         """ 
         self.miljo = miljo
 
-        # self.headers['Accept'] = 'application/vnd.vegvesen.nvdb-v3-rev1+json'
         self.headers['Accept'] = 'application/json'
               
         if miljo == 'utvles': 
@@ -162,6 +161,7 @@ class apiforbindelse( ):
         """
         Logger inn på apiles, ref
         https://nvdbapilesv3.docs.apiary.io/#reference/0/autentisering/innlogging
+        https://nvdbapiles.atlas.vegvesen.no/swagger-ui/index.html?urls.primaryName=Autentisering 
         """ 
 
         temp = self.SVVpassord( username=username, pw=pw )

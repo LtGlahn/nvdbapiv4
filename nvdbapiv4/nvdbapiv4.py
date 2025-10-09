@@ -11,7 +11,7 @@ Har disse hjelpefunksjonene:
     - egenskaper2records: Oversetter liste med egenskapverdier til dictionary 
     - vegrefpunkt: Slår opp på et punkt på vegnettet
 
-Sjekk README.md for detaljer, og https://github.com/LtGlahn/nvdbapi-V3/issues for kjente feil og mangler. 
+Sjekk README.md for detaljer, og https://github.com/LtGlahn/nvdbapi/issues for kjente feil og mangler. 
 
 """
 
@@ -47,7 +47,7 @@ class nvdbVegnett:
 
     Vi er kun en tynn "wrapper" som henter segmentert vegnett fra NVDB api LES, og viser til dokumentasjon 
     for dette endepunktet for mer info om aktuelle søkefiltre etc. 
-    https://nvdbapiles-v3.atlas.vegvesen.no/dokumentasjon/openapi/#/Vegnett/get_vegnett_veglenkesekvenser_segmentert 
+    https://nvdbapiles.atlas.vegvesen.no/swagger-ui/index.html?urls.primaryName=Vegnett#/Vegnett/getVeglenkesegmenter
 
     n = nvdbVegnett() 
     n.filter( {'kommune' : 5001 })            # Veger i Trondheim kommune
@@ -66,7 +66,7 @@ class nvdbVegnett:
         
         self.filterdata = {}
         self.geofilter = {} # DEPRECEATED
-#         self.headers =   { 'accept' : 'application/vnd.vegvesen.nvdb-v3-rev3+json', 
+#         self.headers =   { 'accept' : 'application/vnd.vegvesen.nvdb-rev3+json', 
         self.headers =   { 'accept' : 'application/json', 
                             'X-Client' : 'nvdbapi.py',
                             'X-Kontaktperson' : 'jan.kristian.jensen@vegvesen.no'}
@@ -227,7 +227,7 @@ class nvdbVegnett:
 
         See 
         http://api.vegdata.no  or this repository README-file 
-        https://github.com/LtGlahn/nvdbapi-V3/blob/master/README.md 
+        https://github.com/LtGlahn/nvdbapi/blob/master/README.md 
         for a list of possible filters and their values. 
                 
         addfilter with no arguments returns the current filter. 
@@ -411,16 +411,16 @@ class nvdbVegnett:
         if args and isinstance( args[0], str): 
             
             if 'utv' in  args[0].lower() and not 'stm' in args[0].lower(): 
-                self.apiurl = 'https://nvdbapiles-v3.utv.atlas.vegvesen.no/'
+                self.apiurl = 'https://nvdbapiles.utv.atlas.vegvesen.no/'
                 self.forbindelse.velgmiljo('utvles')
             elif 'stm-utvles' in args[0].lower(): 
-                self.apiurl = 'https://nvdbapiles-v3-stm.utv.atlas.vegvesen.no/'
+                self.apiurl = 'https://nvdbapilesstm.utv.atlas.vegvesen.no/'
                 self.forbindelse.velgmiljo('stm-utvles')
             elif 'test' in args[0].lower(): 
-                self.apiurl = 'https://nvdbapiles-v3.test.atlas.vegvesen.no/'
+                self.apiurl = 'https://nvdbapile.test.atlas.vegvesen.no/'
                 self.forbindelse.velgmiljo('testles')
             elif 'prod' in args[0].lower(): 
-                self.apiurl = 'https://nvdbapiles-v3.atlas.vegvesen.no/'
+                self.apiurl = 'https://nvdbapiles.atlas.vegvesen.no/'
                 self.forbindelse.velgmiljo('prodles')
             else: 
                 print( "Forstod ikke parameter:", args[0])
@@ -509,7 +509,7 @@ class nvdbVegnett:
         """
         PROTOTYPE - Finner vegnett langs rute mellom start- og sluttpunkt angitt med vegsystemreferanse
 
-        https://nvdbapiles-v3.atlas.vegvesen.no/dokumentasjon/openapi/#/Vegnett/get_beta_vegnett_rute
+        https://nvdbapiles.atlas.vegvesen.no/dokumentasjon/openapi/#/Vegnett/get_beta_vegnett_rute
 
         Resultatene puttes inn i søkeobjektets datastruktur, og du kan bruke de vanlige funksjonene 
         for å aksessere dem (nesteForekomst, to_records() og så videre) 
@@ -525,7 +525,7 @@ class nvdbVegnett:
 
         KEYWORDS: 
             Evt nøkkelord blir brukt som parametre i rutesøket mot NVDB api V3 /beta/vegnett/rute
-            https://nvdbapiles-v3.atlas.vegvesen.no/dokumentasjon/openapi/#/Vegnett/get_beta_vegnett_rute
+            https://nvdbapiles.atlas.vegvesen.no/dokumentasjon/openapi/#/Vegnett/get_beta_vegnett_rute
 
         RETURNS: 
             None. Modifiserer i stedet datainnholdet i Vegnett - forekomsten 
@@ -547,12 +547,12 @@ class nvdbNoder(nvdbVegnett):
     """
     Henter ut noder fra NVDB api LES, nesten slik som nvdbVegnett. Har flesteparten av de samme metodene som nvdbVegnett 
 
-    Ref https://nvdbapiles-v3.atlas.vegvesen.no/dokumentasjon/openapi/#/Vegnett/get_vegnett_noder
+    Ref https://nvdbapiles.atlas.vegvesen.no/dokumentasjon/openapi/#/Vegnett/get_vegnett_noder
     """
 
     def __init__( self, miljo=None, debug=False, filter=None):
         self.filterdata = {}
-        self.headers =   { 'accept' : 'application/vnd.vegvesen.nvdb-v3-rev3+json', 
+        self.headers =   { 'accept' : 'application/vnd.vegvesen.nvdb-rev3+json', 
                             'X-Client' : 'nvdbapi.py',
                             'X-Kontaktperson' : 'jan.kristian.jensen@vegvesen.no'}
 
@@ -628,7 +628,7 @@ class nvdbFagdata(nvdbVegnett):
     def __init__( self, objTypeID, miljo=None, debug=False, filter=None ):
 
 
-        self.headers =   { 'accept' : 'application/vnd.vegvesen.nvdb-v3-rev1+json', 
+        self.headers =   { 'accept' : 'application/vnd.vegvesen.nvdb-rev1+json', 
                         'X-Client' : 'nvdbapi.py',
                         'X-Kontaktperson' : 'Anonymous'}
     
@@ -645,7 +645,7 @@ class nvdbFagdata(nvdbVegnett):
                     }  
     
         self.data = { 'objekter' : []}
-        self.apiurl = 'https://nvdbapiles-v3.atlas.vegvesen.no/'
+        self.apiurl = 'https://nvdbapiles.atlas.vegvesen.no/'
         self.objektTypeId = None
         self.objektTypeDef = None
         self.antall = None
@@ -1329,7 +1329,7 @@ def vegrefpunkt( vref, retur='veglenkeposisjon', forb=None ):
     """
     Slår opp vegsystemreferanse i NVDBAPILES V3. Returnerer koordinater, veglenkeposisjon eller hele datastrukturen. 
 
-    https://nvdbapiles-v3.atlas.vegvesen.no/dokumentasjon/openapi/#/Vegnett/get_veg
+    https://nvdbapiles.atlas.vegvesen.no/dokumentasjon/openapi/#/Vegnett/get_veg
 
     ARGUMENTS: 
         vref - string, vegsystemreferanse 
@@ -1365,7 +1365,7 @@ def veglenkepunkt( vpos, retur='wkt', forb=None ):
     """
     Slår opp vegsystemreferanse i NVDBAPILES V3. Returnerer koordinater, vegsystemreferanse eller hele datastrukturen. 
 
-    https://nvdbapiles-v3.atlas.vegvesen.no/dokumentasjon/openapi/#/Vegnett/get_veg
+    https://nvdbapiles.atlas.vegvesen.no/dokumentasjon/openapi/#/Vegnett/get_veg
 
     ARGUMENTS: 
         vpos - string, veglenkeposisjon på formatet .8225@21802 
@@ -1402,7 +1402,7 @@ def vegref2rute( vref1, vref2, forb=None, **kwargs ):
     """
     Finner rute (liste med veglenke-biter) mellom to punkt angitt som vegsystemreferanse i NVDBAPILES V3. 
 
-    https://nvdbapiles-v3.atlas.vegvesen.no/dokumentasjon/openapi/#/Vegnett/get_beta_vegnett_rute
+    https://nvdbapiles.atlas.vegvesen.no/dokumentasjon/openapi/#/Vegnett/get_beta_vegnett_rute
 
     ARGUMENTS: 
         vref1 - string, vegsystemreferanse for starten på ruta
@@ -1457,7 +1457,7 @@ def hentrute( pos1, pos2, forb=None, droppRiksvegruter=True, droppKontrakter=Tru
                                             få med dictionary med kontraktsområder-informasjon         
 
         Alle andre nøkkelord blir tolket som spørreparametre (filter) i spørringen til beta/vegnett/rute, 
-        se dokumentasjon for https://nvdbapiles-v3.atlas.vegvesen.no/dokumentasjon/openapi/#/Vegnett/get_beta_vegnett_rute 
+        se dokumentasjon for https://nvdbapiles.atlas.vegvesen.no/dokumentasjon/openapi/#/Vegnett/get_beta_vegnett_rute 
 
         TODO: Fjern beta-delen av URL når NVDB api oppgraderer vekk beta-stempelet
 
